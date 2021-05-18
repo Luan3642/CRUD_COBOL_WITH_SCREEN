@@ -1,0 +1,25 @@
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. PROGRAMA.
+      ******************************
+      * OBJETIVO: SISTEMA DE GESTÃO DE CLIENTES
+      * AUTHOR: LUAN MAGALHÃES
+       ENVIRONMENT DIVISION.
+       CONFIGURATION SECTION.
+       SPECIAL-NAMES.
+           DECIMAL-POINT IS COMMA.
+       DATA DIVISION.
+
+       WORKING-STORAGE SECTION.
+       77 WRK-OPCAO PIC X(1).
+
+       SCREEN SECTION.
+       01 TELA.
+           05 LIMPA-TELA.
+               10 BLANK SCREEN.
+               10 LINE 05 COLUMN 01 ERASE EOL
+                   BACKGROUND-COLOR 2.
+
+       PROCEDURE DIVISION.
+           DISPLAY  TELA.
+           ACCEPT WRK-OPCAO FROM CONSOLE.
+           STOP RUN.
