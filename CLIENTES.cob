@@ -28,6 +28,7 @@
        77 WRK-MODULO PIC X(25).
        77 WRK-TECLA PIC X(1).
        77 CLIENTES-STATUS PIC 9(2).
+       77 WRK-MSGERRO PIC X(30).
 
 
        SCREEN SECTION.
@@ -62,6 +63,15 @@
                 10 COLUMN PLUS 2 PIC X(30) USING CLIENTES-NOME.
                 10 LINE 12 COLUMN 10 VALUE 'EMAIL....'.
                 10 COLUMN PLUS 2 PIC X(40) USING CLIENTES-EMAIL.
+
+       01 MOSTRA-ERRO.
+           02 MSG-ERRO.
+               10 LINE 16 COLUMN 01 ERASE EOL
+                                  BACKGROUND-COLOR 3.
+               10 LINE 16 COLUMN 10 PIC X(40)
+                           BACKGROUND-COLOR 3
+                           FROM WRK-MSGERRO.
+               10 COLUMN PLUS 2 PIC X(01) USING WRK-TECLA.
 
        PROCEDURE DIVISION.
        0001-PRINCIPAL SECTION.
@@ -109,6 +119,10 @@
              MOVE 'MODULO - INCLUSAO ' TO WRK-MODULO.
              DISPLAY TELA.
              ACCEPT TELA-REGISTRO.
-               WRITE CLIENTES-REG.
+               WRITE CLIENTES-REG
+                   INVALID KEY
+                       MOVE 'JA EXISTE ' TO WRK-MSGERRO
+                       ACCEPT MOSTRA-ERRO
+                    END-WRITE.
                    DISPLAY TELA.
                ACCEPT MENU.
