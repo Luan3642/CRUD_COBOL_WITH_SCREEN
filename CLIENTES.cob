@@ -105,7 +105,7 @@
               WHEN 2
                 PERFORM 6000-CONSULTAR
               WHEN 3
-                CONTINUE
+                PERFORM  7000-ALTERAR
               WHEN 4
                 PERFORM 8000-EXCLUIR
               WHEN 5
@@ -149,6 +149,29 @@
                      DISPLAY SS-DADOS
                   END-READ.
                       ACCEPT MOSTRA-ERRO.
+
+       7000-ALTERAR.
+           MOVE 'MODULO - ALTERAR ' TO WRK-MODULO.
+           DISPLAY TELA.
+           DISPLAY TELA-REGISTRO.
+            ACCEPT  CHAVE.
+              READ CLIENTES
+              IF CLIENTES-STATUS = 0
+                  ACCEPT SS-DADOS
+                   REWRITE CLIENTES-REG
+                       IF CLIENTES-STATUS = 0
+                           MOVE 'REGISTRO ALTERADO ' TO WRK-MSGERRO
+                           ACCEPT MOSTRA-ERRO
+                       ELSE
+                           MOVE 'REGISTRO NAO ALTERADO' TO WRK-MSGERRO
+                           ACCEPT MOSTRA-ERRO
+                       END-IF
+              ELSE
+                  MOVE 'REGISTRO NAO ENCONTRADO' TO WRK-MSGERRO
+                  ACCEPT MOSTRA-ERRO
+              END-IF.
+
+
 
        8000-EXCLUIR.
            MOVE 'MODULO - EXCLUSÃO' TO WRK-MODULO.
