@@ -71,12 +71,14 @@
                10 LINE 16 COLUMN 10 PIC X(40)
                            BACKGROUND-COLOR 3
                            FROM WRK-MSGERRO.
-               10 COLUMN PLUS 2 PIC X(01) USING WRK-TECLA.
+               10 COLUMN PLUS 2 PIC X(01)
+                               BACKGROUND-COLOR 3
+                               USING WRK-TECLA.
 
        PROCEDURE DIVISION.
        0001-PRINCIPAL SECTION.
-            PERFORM 1000-INICIAR.
-            PERFORM 2000-PROCESSAR.
+            PERFORM 1000-INICIAR THRU 1100-MONTATELA.
+            PERFORM 2000-PROCESSAR UNTIL WRK-OPCAO = 'X'.
             PERFORM 3000-FINALIZAR.
             STOP RUN.
 
@@ -87,8 +89,14 @@
                    CLOSE CLIENTES
                    OPEN I-O CLIENTES
               END-IF.
-            DISPLAY TELA.
-            ACCEPT MENU.
+
+
+
+
+       1100-MONTATELA.
+           DISPLAY TELA.
+           ACCEPT MENU.
+
        2000-PROCESSAR.
             EVALUATE WRK-OPCAO
               WHEN 1
@@ -106,6 +114,7 @@
                     DISPLAY 'ENTRE COM OPCAO CORRETA'
                 END-IF
             END-EVALUATE.
+                PERFORM 1100-MONTATELA.
 
 
 
@@ -124,5 +133,3 @@
                        MOVE 'JA EXISTE ' TO WRK-MSGERRO
                        ACCEPT MOSTRA-ERRO
                     END-WRITE.
-                   DISPLAY TELA.
-               ACCEPT MENU.
